@@ -4,6 +4,12 @@ const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 
+btn1.addEventListener("click",  () => playerSelection="rock");
+
+btn2.addEventListener("click", () => playerSelection="paper");
+
+btn3.addEventListener("click", () => playerSelection="scissors");
+
 function computerPlay(){
 	var random = Math.floor(Math.random() * 3);
 	if (random === 0){
@@ -41,5 +47,4 @@ function game(){
 	console.log(playRound(playerSelection, computerSelection));
 }
 
-computerSelection = computerPlay();
 //console.log(playRound("rock", computerSelection));
