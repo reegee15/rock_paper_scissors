@@ -1,9 +1,11 @@
-var random;
-random = Math.floor(Math.random() * 3);
+let playerSelection, computerSelection;
 
-var playerSelection = prompt("What it is");
+const btn1 = document.querySelector("#btn1");
+const btn2 = document.querySelector("#btn2");
+const btn3 = document.querySelector("#btn3");
 
 function computerPlay(){
+	var random = Math.floor(Math.random() * 3);
 	if (random === 0){
 		return "rock";
 	}
@@ -16,7 +18,8 @@ function computerPlay(){
 }
 
 function playRound(playerSelection, computerSelection){
-	playerSelection.toLowerCase();
+	//playerSelection.toLowerCase();
+	computerSelection = computerPlay();
 	if (playerSelection === "rock" && computerSelection === "scissors"){ 
 		return "You Win";
 	}
