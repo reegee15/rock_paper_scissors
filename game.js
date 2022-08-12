@@ -1,5 +1,10 @@
 let playerSelection, computerSelection;
+let playerWins = 0, comWins = 0;
+
 const div = document.createElement("div");
+const pTally =document.querySelector(".player-score");
+const cTally =document.querySelector(".computer-score");
+const reset = document.createElement("button");
 
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
@@ -31,26 +36,63 @@ function playRound(playerSelection, computerSelection){
 	//playerSelection.toLowerCase();
 	computerSelection = computerPlay();
 	if (playerSelection === "rock" && computerSelection === "scissors"){ 
-		return "You Win";
+		document.body.appendChild(div);
+		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
+		return "Win";
 	}
 	else if (playerSelection === "scissors" && computerSelection === "paper"){
-		return "You Win";
+		document.body.appendChild(div);
+		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
+		return "Win";
 	}
 	else if (playerSelection === "paper" && computerSelection === "rock"){
-		return "You Win";
+		document.body.appendChild(div);
+		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
+		return "Win";
 	}
 	else if (playerSelection === computerSelection ){
+		document.body.appendChild(div);
+		div.textContent = `You both chose ${playerSelection}`;
 		return "Tie";
 	} else{
-		return `You lose. ${computerSelection} beats ${playerSelection}`;
+		document.body.appendChild(div);
+		div.textContent = `You lose. ${computerSelection} beats ${playerSelection}`;
+		return "Loss";
 	} 
 		
 }
 
 function game(){
-	document.body.appendChild(div);
-	div.innerHTML =  playRound(playerSelection, computerSelection);
-	console.log(div.innerHTML);
-}
+	playRound(playerSelection, computerSelection);
+	if(playRound(playerSelection, computerSelection) === "Win"){
+		playerWins += 1;
+		pTally.textContent =  "Player Score: " + playerWins;
+		console.log(playerWins + " P");
 
+		if(playerWins === 5){
+			div.innerHTML = "You Win!";
+			console.log(div.innerHTML);
+			document.body.appendChild(reset);
+			reset.textContent = "Reset Game";
+			reset.addEventListener("click", () => location.reload() );
+		}
+		
+	}
+	else if(playRound(playerSelection, computerSelection) === "Loss"){
+		comWins += 1;
+		//change to be under a div or sum
+
+		cTally.textContent = "Computer Score: " + comWins;
+		console.log(comWins + " C")
+
+		if(comWins === 5){
+			div.innerHTML = "Computer Wins!";
+			console.log("C Win");
+			reset.textContent = "Reset Game";
+			document.body.appendChild(reset);
+			reset.addEventListener("click", () => location.reload() );
+		}
+		
+	}
+}
 //console.log(playRound("rock", computerSelection));
