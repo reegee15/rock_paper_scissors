@@ -1,61 +1,64 @@
 let playerSelection, computerSelection;
 let playerWins = 0, comWins = 0;
 
-const div = document.createElement("div");
 const pTally =document.querySelector(".player-score");
 const cTally =document.querySelector(".computer-score");
-const reset = document.createElement("button");
+const reset_div = document.querySelector("#reset-div");
+const reset = document.querySelector(".reset-btn");
+const div = document.createElement("div");
+div.setAttribute("class", "divy");
 
-const btn1 = document.querySelector("#btn1");
-const btn2 = document.querySelector("#btn2");
-const btn3 = document.querySelector("#btn3");
+//reference 
+const btn1 = document.querySelector(".btn1");
+const btn2 = document.querySelector(".btn2");
+const btn3 = document.querySelector(".btn3");
 
-btn1.addEventListener("click",  () => playerSelection="rock");
+btn1.addEventListener("click",  () => playerSelection="Rock");
 btn1.addEventListener("click", game);
 
-btn2.addEventListener("click", () => playerSelection="paper");
+btn2.addEventListener("click", () => playerSelection="Paper");
 btn2.addEventListener("click", game);
 
-btn3.addEventListener("click", () => playerSelection="scissors");
+btn3.addEventListener("click", () => playerSelection="Scissors");
 btn3.addEventListener("click", game);
 
 function computerPlay(){
 	var random = Math.floor(Math.random() * 3);
 	if (random === 0){
-		return "rock";
+		return "Rock";
 	}
 	else if (random === 1){
-		return "paper";
+		return "Paper";
 	}
 	else if (random === 2){
-		return "scissors";
+		return "Scissors";
 	}
 }
 
 function playRound(playerSelection, computerSelection){
 	//playerSelection.toLowerCase();
 	computerSelection = computerPlay();
-	if (playerSelection === "rock" && computerSelection === "scissors"){ 
-		document.body.appendChild(div);
+	if (playerSelection === "Rock" && computerSelection === "Scissors"){ 
+		document.body.insertBefore(div, reset_div);
 		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
 		return "Win";
 	}
-	else if (playerSelection === "scissors" && computerSelection === "paper"){
-		document.body.appendChild(div);
+	else if (playerSelection === "Scissors" && computerSelection === "Paper"){
+		document.body.insertBefore(div, reset_div);
 		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
 		return "Win";
 	}
-	else if (playerSelection === "paper" && computerSelection === "rock"){
-		document.body.appendChild(div);
+	else if (playerSelection === "Paper" && computerSelection === "Rock"){
+		document.body.insertBefore(div, reset_div);
 		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
 		return "Win";
 	}
 	else if (playerSelection === computerSelection ){
-		document.body.appendChild(div);
+		document.body.insertBefore(div, reset_div);
 		div.textContent = `You both chose ${playerSelection}`;
 		return "Tie";
 	} else{
-		document.body.appendChild(div);
+		document.body.insertBefore(div, reset_div);
 		div.textContent = `You lose. ${computerSelection} beats ${playerSelection}`;
 		return "Loss";
 	} 
@@ -72,8 +75,9 @@ function game(){
 		if(playerWins === 5){
 			div.innerHTML = "You Win!";
 			console.log(div.innerHTML);
-			document.body.appendChild(reset);
-			reset.textContent = "Reset Game";
+			btn1.disabled = true;
+			btn2.disabled = true;
+			btn3.disabled = true;
 			reset.addEventListener("click", () => location.reload() );
 		}
 		
@@ -88,8 +92,9 @@ function game(){
 		if(comWins === 5){
 			div.innerHTML = "Computer Wins!";
 			console.log("C Win");
-			reset.textContent = "Reset Game";
-			document.body.appendChild(reset);
+			btn1.disabled = true;
+			btn2.disabled = true;
+			btn3.disabled = true;
 			reset.addEventListener("click", () => location.reload() );
 		}
 		
