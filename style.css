@@ -1,0 +1,19 @@
+*{
+    background-color: lightgrey;
+}
+
+#header{
+    position: relative;
+    text-align: center;
+}
+
+#score{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+}
+
+#buttons{
+    display: flex;
+    justify-content: center;
+}

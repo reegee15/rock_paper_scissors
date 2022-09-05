@@ -1,103 +1,111 @@
+const score = document.querySelector("#score");
 let playerSelection, computerSelection;
-let playerWins = 0, comWins = 0;
+let btn1 , btn2, btn3, reset;
+let pWins = 0, cWins = 0;
+buttons = document.querySelector("#buttons");
+btn1 = document.querySelector(".btn1");
+btn2 = document.querySelector(".btn2");
+btn3 = document.querySelector(".btn3");
+reset = document.querySelector(".reset-btn");
 
-const pTally =document.querySelector(".player-score");
-const cTally =document.querySelector(".computer-score");
-const reset_div = document.querySelector("#reset-div");
-const reset = document.querySelector(".reset-btn");
-const div = document.createElement("div");
-div.setAttribute("class", "divy");
 
-//reference 
-const btn1 = document.querySelector(".btn1");
-const btn2 = document.querySelector(".btn2");
-const btn3 = document.querySelector(".btn3");
+let pDisplay=document.createElement("div");
+pDisplay.className = "display";
+score.appendChild(pDisplay);
+pDisplay.textContent = 0;
+let cDisplay=document.createElement("div");
+score.appendChild(cDisplay);
+cDisplay.textContent = 0;
 
-btn1.addEventListener("click",  () => playerSelection="Rock");
-btn1.addEventListener("click", game);
+reset.addEventListener("click", function(){
+    console.clear();
+    pWins = 0;
+    cWins = 0;
+    pDisplay.textContent= 0;
+    cDisplay.textContent = 0;
+    btn1.disabled = false;
+    btn2.disabled = false;
+    btn3.disabled = false;
+} );
 
-btn2.addEventListener("click", () => playerSelection="Paper");
-btn2.addEventListener("click", game);
+btn1.addEventListener("click", function (){
+    playerSelection ="Rock";
+    game();
+});
+btn2.addEventListener("click", function (){
+    playerSelection ="Paper";
+    game();
+});
+btn3.addEventListener("click", function (){
+    playerSelection ="Scissors";
+    game();
+});
 
-btn3.addEventListener("click", () => playerSelection="Scissors");
-btn3.addEventListener("click", game);
 
-function computerPlay(){
-	var random = Math.floor(Math.random() * 3);
-	if (random === 0){
-		return "Rock";
-	}
-	else if (random === 1){
-		return "Paper";
-	}
-	else if (random === 2){
-		return "Scissors";
-	}
+function computerChoice(){
+    let random = Math.floor(Math.random() * 3);
+    if (random === 0){
+        return "Rock";
+    }
+    else if (random === 1){
+        return "Paper";
+    }
+    else if (random === 2){
+        return "Scissors";
+    }
 }
 
 function playRound(playerSelection, computerSelection){
-	//playerSelection.toLowerCase();
-	computerSelection = computerPlay();
-	if (playerSelection === "Rock" && computerSelection === "Scissors"){ 
-		document.body.insertBefore(div, reset_div);
-		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
-		return "Win";
-	}
-	else if (playerSelection === "Scissors" && computerSelection === "Paper"){
-		document.body.insertBefore(div, reset_div);
-		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
-		return "Win";
-	}
-	else if (playerSelection === "Paper" && computerSelection === "Rock"){
-		document.body.insertBefore(div, reset_div);
-		div.textContent = `You Win. ${playerSelection} beats ${computerSelection}`;
-		return "Win";
-	}
-	else if (playerSelection === computerSelection ){
-		document.body.insertBefore(div, reset_div);
-		div.textContent = `You both chose ${playerSelection}`;
-		return "Tie";
-	} else{
-		document.body.insertBefore(div, reset_div);
-		div.textContent = `You lose. ${computerSelection} beats ${playerSelection}`;
-		return "Loss";
-	} 
-		
+    computerSelection = computerChoice();
+    if(playerSelection === computerSelection){
+        console.log(`Tie. ${playerSelection} = ${computerSelection}`);
+        return "TIE";
+    }
+    else if(playerSelection === "Rock" && computerSelection === "Scissors"){
+        console.log(`You Win. ${playerSelection} beats ${computerSelection}`);
+        return "WIN";
+    }
+    else if(playerSelection === "Paper" && computerSelection === "Rock"){
+        console.log(`You Win. ${playerSelection} beats ${computerSelection}`);
+        return "WIN";
+    }
+    else if(playerSelection === "Scissors" && computerSelection === "Paper"){
+        console.log(`You Win. ${playerSelection} beats ${computerSelection}`);
+        return "WIN";
+    }
+    else{
+        console.log(`You Lose. ${computerSelection} beats ${playerSelection}`);
+        return "LOSE";
+    }
 }
 
 function game(){
-	playRound(playerSelection, computerSelection);
-	if(playRound(playerSelection, computerSelection) === "Win"){
-		playerWins += 1;
-		pTally.textContent =  "Player Score: " + playerWins;
-		console.log(playerWins + " P");
+    let round = playRound(playerSelection, computerSelection)
+    if(round === "WIN"){
+        pWins++;
+        pDisplay.textContent = pWins;
+        console.log(pWins);
 
-		if(playerWins === 5){
-			div.innerHTML = "You Win!";
-			console.log(div.innerHTML);
-			btn1.disabled = true;
+        if(pWins === 5){
+            console.log("Player Wins!");
+            btn1.disabled = true;
 			btn2.disabled = true;
 			btn3.disabled = true;
-			reset.addEventListener("click", () => location.reload() );
-		}
-		
-	}
-	else if(playRound(playerSelection, computerSelection) === "Loss"){
-		comWins += 1;
-		//change to be under a div or sum
+        }
+    }
+    else if(round === "LOSE"){
+        cWins++;
+        cDisplay.textContent = cWins;
+        console.log(cWins);
 
-		cTally.textContent = "Computer Score: " + comWins;
-		console.log(comWins + " C")
-
-		if(comWins === 5){
-			div.innerHTML = "Computer Wins!";
-			console.log("C Win");
-			btn1.disabled = true;
+        if(cWins === 5){
+            console.log("Computer Wins!");
+            btn1.disabled = true;
 			btn2.disabled = true;
 			btn3.disabled = true;
-			reset.addEventListener("click", () => location.reload() );
-		}
-		
-	}
+        }
+    }
+    
 }
-//console.log(playRound("rock", computerSelection));
+
+
