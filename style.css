@@ -11,9 +11,30 @@
     display: flex;
     justify-content: center;
     gap:20px;
+    font-size: 1.5rem;
+}
+
+#score-text{
+    position: relative;
+    text-align: center;
 }
 
 #buttons{
     display: flex;
     justify-content: center;
+    margin-top: 10px;
+}
+
+#buttons > button{
+    font-size: 100%;
+    font-weight: bold;
+    width: 75px;
+    height: 75px;
+    border: 1px solid black;
+}
+
+#buttons > button:hover{
+    width: 80px;
+    height: 80px;
+    cursor: grab;
 }
